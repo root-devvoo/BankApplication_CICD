@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bankapp-api-app
+  namespace: bankapp-backend-app
+  labels:
+    app: bankapp-api-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bankapp-api-app
+  template:
+    metadata:
+      labels:
+        app: bankapp-api-app
+    spec:
+      containers:
+        - name: spring-boot
+          image: 015501295117.dkr.ecr.ap-northeast-2.amazonaws.com/bankapp/bankapp:Backend
+          env:
+            - name: spring.profiles.active
+              value: test
+          ports:
+            - name: boot-port
+              containerPort: 9090
+          readinessProbe:
+            tcpSocket:
+              port: boot-port
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: boot-port
+          startupProbe:
+            httpGet:
+              path: /
+              port: boot-port
+            failureThreshold: 30
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bankapp-api-service
+  namespace: bankapp-backend-app
+  labels:
+    app: bankapp-api-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: bankapp-api-app
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 9090
