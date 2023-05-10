@@ -23,7 +23,7 @@ spec:
               value: test
           ports:
             - name: boot-port
-              containerPort: 9090
+              containerPort: 5000
           readinessProbe:
             tcpSocket:
               port: boot-port
@@ -55,4 +55,4 @@ spec:
     - name: http
       port: 80
       protocol: TCP
-      targetPort: 9090
+      targetPort: 5000
