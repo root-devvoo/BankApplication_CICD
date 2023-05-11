@@ -20,7 +20,7 @@ spec:
           image: 015501295117.dkr.ecr.ap-northeast-2.amazonaws.com/bankapp:Backend85
           env:
             - name: spring.profiles.active
-              value: test
+              value: prod
           ports:
             - name: boot-port
               containerPort: 5000
