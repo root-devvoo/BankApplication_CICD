@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: spring-boot
-          image: 015501295117.dkr.ecr.ap-northeast-2.amazonaws.com/bankapp:Backend88
+          image: 015501295117.dkr.ecr.ap-northeast-2.amazonaws.com/bankapp:Backend89
           env:
             - name: spring.profiles.active
               value: prod
