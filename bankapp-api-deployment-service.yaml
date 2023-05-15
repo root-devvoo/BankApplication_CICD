@@ -23,7 +23,7 @@ spec:
               value: prod
           ports:
             - name: boot-port
-              containerPort: 5000
+              containerPort: 5000  
           readinessProbe:
             tcpSocket:
               port: boot-port
@@ -39,6 +39,13 @@ spec:
               port: boot-port
             failureThreshold: 30
             periodSeconds: 10
+          volumeMounts:
+          - mountPath: /etc/localtime
+            name: timezone-config
+      volumes:
+      - hostPath:
+          path: /usr/share/zoneinfo/Asia/Seoul
+        name: timezone-config        
 ---
 apiVersion: v1
 kind: Service
